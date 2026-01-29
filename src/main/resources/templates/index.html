@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2 { color: #333; }
+        form { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        form div { margin-bottom: 10px; }
+        label { display: inline-block; width: 90px; }
+        input[type="text"], input[type="email"] { width: 200px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .actions button { margin-right: 5px; }
+        .edit-form { display: none; margin-top: 10px; padding: 10px; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    
+    <h1>Student Management System</h1>
+
+    <h2>Add New Student</h2>
+    <form id="addStudentForm">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+        </div>
+        <div>
+            <label for="department">Department:</label>
+            <input type="text" id="department" required>
+        </div>
+        <button type="submit">Add Student</button>
+    </form>
+
+    <h2>Student List</h2>
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
