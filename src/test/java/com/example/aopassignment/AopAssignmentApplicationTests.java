@@ -90,7 +90,7 @@ class AopAssignmentApplicationTests {
 		Integer id = objectMapper.readValue(response, Student.class).getId();
 
 		mockMvc.perform(delete("/students/{id}", id))
-				.andExpect(status().isNoContent());
+				.andExpect(status().isOk());
 
 		mockMvc.perform(get("/students/{id}", id))
 				.andExpect(status().isNotFound());

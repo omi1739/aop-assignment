@@ -1,6 +1,5 @@
 package com.example.aopassignment.controller;
 
-import com.example.aopassignment.exception.ResourceNotFoundException;
 import com.example.aopassignment.model.Student;
 import com.example.aopassignment.service.StudentService;
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/students")
@@ -24,15 +22,18 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getAllStudents() {
-        logger.info("Received request to get all students");
-        return studentService.getAllStudents();
+        return studentService.getAllStudents(); 
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Integer id) {
         logger.info("Received request to get student by id: {}", id);
-        Optional<Student> student = studentService.getStudentById(id);
-        return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Student student = studentService.getStudentById(id); 
+        if (student != null) {
+            return ResponseEntity.ok(student);
+        } else {
+            return ResponseEntity.notFound().build(); 
+        }
     }
 
     @PostMapping
@@ -42,26 +43,16 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Integer id, @RequestBody Student studentDetails) {
+    public Student updateStudent(@PathVariable Integer id, @RequestBody Student studentDetails) { 
         logger.info("Received request to update student with id: {}", id);
-        try {
-            Student updatedStudent = studentService.updateStudent(id, studentDetails);
-            return ResponseEntity.ok(updatedStudent);
-        } catch (ResourceNotFoundException e) {
-            logger.warn("Student not found with id: {}", id);
-            return ResponseEntity.notFound().build();
-        }
+       
+        return studentService.updateStudent(id, studentDetails);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Integer id) {
+    public void deleteStudent(@PathVariable Integer id) {
         logger.info("Received request to delete student with id: {}", id);
-        try {
-            studentService.deleteStudent(id);
-            return ResponseEntity.noContent().build();
-        } catch (ResourceNotFoundException e) {
-            logger.warn("Student not found with id: {}", id);
-            return ResponseEntity.notFound().build();
-        }
+        
+        studentService.deleteStudent(id);
     }
 }
